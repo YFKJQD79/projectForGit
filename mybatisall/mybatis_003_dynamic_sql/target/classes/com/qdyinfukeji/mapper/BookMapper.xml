@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qdyinfukeji.mapper.BookMapper">
+    <!-- 查询全部图书
+       List< > getAll();
+
+        private int id;
+        private String name;-->
+    <select id="getAll" resultType="book">
+        select bookid id,bookname name from book
+    </select>
+    <!--手工绑定
+        private int id;
+        private String name;-->
+    <resultMap id="bookmap" type="book">
+        <!--主键绑定-->
+        <id property="id" column="bookid"/>
+        <!--非主键绑定-->
+        <result property="name" column="bookname"/>
+    </resultMap>
+    <!--使用resultMap来完成手工绑定列名与实体类成员变量名称的功能
+      List<Book> getAllNew();-->
+
+</mapper>

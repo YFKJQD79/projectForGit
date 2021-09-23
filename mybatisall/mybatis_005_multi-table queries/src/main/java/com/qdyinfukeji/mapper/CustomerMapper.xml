@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qdyinfukeji.mapper.CustomerMapper">
+<resultMap id="customerMapper" type="customer">
+    <!-- private int id;
+    private String name;
+    private int age;
+
+    //为了同时查到该客户名下的所有订单信息，则创建成员变量订单的集合
+    private List<Orders>oresrsList;-->
+
+    <!--主键绑定-->
+    <id property="id" column="id"/>
+    <!--非主键绑定-->
+    <result property="name" column="name"/>
+    <result property="age" column="age"/>
+    <!--集合绑定
+        集合中的数据类型
+         private int id;
+         private String orderNumber;
+         private double orderPrice;
+    -->
+        <collection property="ordersList" ofType="Orders">
+        <id property="id" column="id"/>
+        <id property="orderNumber" column="orderNumber"/>
+        <id property="orderPrice" column="orderPrice"/>
+
+        </collection>
+</resultMap>
+<!--//按主键查客户信息，并同时查到此客户名下的所有订单
+
+    Customer getById(int id);-->
+
+     <select id="getById" parameterType="int" resultMap="customerMapper">
+        select c.id ,o.id ,c.name,c.age,o.orderNumber,o.orderPrice,o.customer_id
+        from orders o
+       right join   customer c
+        on c.id = o.customer_id
+        where c.id=#{id}
+
+     </select>
+</mapper>

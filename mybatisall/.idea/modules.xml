@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mybatis_001_resultMap/mybatis_001_resultMap.iml" filepath="$PROJECT_DIR$/mybatis_001_resultMap/mybatis_001_resultMap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis_002_dynamic/mybatis_002_dynamic.iml" filepath="$PROJECT_DIR$/mybatis_002_dynamic/mybatis_002_dynamic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis_003_dynamic_sql/mybatis_003_dynamic_sql.iml" filepath="$PROJECT_DIR$/mybatis_003_dynamic_sql/mybatis_003_dynamic_sql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis_004_resultmap/mybatis_004_resultmap.iml" filepath="$PROJECT_DIR$/mybatis_004_resultmap/mybatis_004_resultmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis_005_multi-table queries/mybatis_005_multi-table queries.iml" filepath="$PROJECT_DIR$/mybatis_005_multi-table queries/mybatis_005_multi-table queries.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis_student001/mybatis_student001.iml" filepath="$PROJECT_DIR$/mybatis_student001/mybatis_student001.iml" />
+    </modules>
+  </component>
+</project>

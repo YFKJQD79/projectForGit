@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qdyinfukeji.mapper.UsersMapper">
+    <!--定义列名片段 ,添加表中所有的列-->
+    <sql id="allColumn">id,username,birthday,sex,address</sql>
+
+    <!-- *********************增***********************
+
+        int insert(Users users);
+
+        private int id;
+        private String username;
+        private Date birthday;
+        private String sex;
+        private String address;
+         自增主键返回标签
+          <selectKey keyProperty="id" resultType="int" order="AFTER">
+                select last_insert_id()
+          </selectKey>
+
+          keyProperty:入参的实体类中的成员变量的名称
+          resultType:返回的主键的数据类型
+          order:在插入语句执行的前还是后返回自增的主键信息.-->
+    <insert id="insert" parameterType="users">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select last_insert_id()</selectKey>
+        insert into users(username, birthday, sex, address)
+        values (#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+
+    <!--//批量增加用户******************增*******************
+      int insertBatch(List<Users> list);-->
+    <insert id="insertBatch">
+        insert into  users(username, birthday, sex, address) values
+        <foreach collection="list" item="u" separator=",">
+            (#{u.username},#{u.birthday},#{u.sex},#{u.address})
+        </foreach>
+
+    </insert>
+
+
+    <!--//删除用户********************删************************
+   int delete( int id);
+   -->
+    <delete id="delete" parameterType="int">
+        delete from users
+        where id=#{id}
+
+    </delete>
+
+    <!--//批量删除***************************删****************************
+    int deleteBatch(int []ids);-->
+    <delete id="deleteBatch">
+        delete from users where id in
+        <foreach collection="array" separator="," item="id" open="(" close=")">#{id}</foreach>
+    </delete>
+
+
+
+    <!--更新用户******************改****************************
+
+   int update(Users users);
+       private int id;
+   private String username;
+   private Date birthday;
+   private String sex;
+   -->
+    <update id="update" parameterType="users">
+        update users set username=#{username},birthday=#{birthday},sex=#{sex}, address=#{address}
+        where id=#{id}
+
+    </update>
+
+
+    <!--更新优化****************改***********************
+        int updateGood(Users u);-->
+    <update id="updateGood" parameterType="users">
+        update users
+        <set>
+            <if test="username!=null">username=#{username},</if>
+            <if test="birthday!=null">birthday=#{birthday},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="address!=null">address=#{address}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--//批量更新*************************改**********************************
+
+   List<Users> updateBatch(List list);
+
+     private int id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;-->
+
+    <update id="updateBatch" >
+        <foreach collection="list" item="u" separator=";">
+          update users
+          <set>
+              <if test="u.username !=null">
+                    username=#{u.username},
+              </if>
+              <if test="u.birthday !=null">
+                  birthday=#{u.birthday},
+              </if>
+              <if test="u.sex !=null">
+                  sex=#{u.sex},
+              </if>
+              <if test="u.address !=null">
+                  address=#{u.address},
+              </if>
+          </set>
+
+            where id=#{u.id}
+        </foreach>
+    </update>
+
+
+    <!-- //查询用户所有信息*************查********************
+        List<Users> getAll();-->
+    <select id="getAll" resultType="users">
+        select <include refid="allColumn"/>
+        from users
+    </select>
+
+
+    <!--//按照主键id查询信息******************查*****************
+    Users getById(int id);
+    -->
+    <select id="getById" parameterType="int" resultType="users">
+        select  <include refid="allColumn"/>
+        from users
+        where id=#{id}
+    </select>
+
+    <!--按用户名模糊查询用户类型******************查*****************
+    List<Users>getByName(String username);-->
+    <select id="getByName" parameterType="string" resultType="users">
+        select  <include refid="allColumn"/>
+        from users
+        where username like '%${value}%'
+    </select>
+
+    <!-- //按用户名模糊查询用户类型
+    List<Users>getByNameObject(Users userName);
+}-->
+    <select id="getByNameObject" parameterType="users" resultType="users">
+        select <include refid="allColumn"/>
+        from users
+        where username like '%${username}%'
+    </select>
+
+
+    <!--替换列名查询******************查*****************
+   List<Users>getByColumnName(String columnName, String columnValue);-->
+    <select id="getByColumnName" resultType="users">
+        select  <include refid="allColumn"/>
+        from users
+        where ${columnName} like '%${columnValue}%'
+    </select>
+
+    <!-- 多条件查询******************查********************
+   List<Users>getMulCondition(Users users);
+        private int id;  0
+        private String userName;  null
+        private Date birthday;    null
+        private String sex;       null
+        private String address;   null
+
+        boolean false  double  0.0
+        小心此处是成员变量的原始空
+   -->
+    <select id="getMulCondition" parameterType="users" resultType="users">
+        select
+        <include refid="allColumn"/>
+        from users
+        <where>
+            <if test="username!=null">and username like '%${username}%'</if>
+            <if test="birthday!=null">and birthday=#{birthday}</if>
+            <if test="sex != null">and sex = #{sex}</if>
+            <if test="address != null">and address like '%${address}%'</if>
+        </where>
+    </select>
+
+
+
+    <!-- //查询一个id段*******************************查***************************
+    List<Users>getByIdd( int begin ,int end);-->
+
+    <select id="getByIdd" resultType="users">
+        select
+        <include refid="allColumn"/>
+        from  users where id between #{arg0} and #{arg1}
+
+    </select>
+
+
+    <!-- //查询指定的3,5,7id的用户信息**************查*********************
+          入参是数组
+            List<Users> getByIds(int []ids);
+
+            #{id}的含义  :  取id的值
+            -->
+
+    <select id="getByIds" parameterType="int" resultType="users">
+        select
+        <include refid="allColumn"/>
+        from users where id in
+        <foreach collection="array" item="id" separator="," open="(" close=")">#{id}</foreach>
+    </select>
+
+    <!--//按指定起始和终止日期进行查询******************查*********************
+       List<Users>getByBirthday(Date begin,Date end);-->
+    <select id="getByBirthday" resultType="users">
+        select
+        <include refid="allColumn"/>
+        from  users where birthday between #{arg0} and #{arg1}
+    </select>
+
+
+    <!--***********************查****************************
+   //入参是map,进行起始和终止日期进行查询
+   List<Users> getByMap(Map<String,Date> map);
+   -->
+    <select id="getByMap" parameterType="map" resultType="users">
+        select
+        <include refid="allColumn"/>
+        from users where birthday between #{beginDate}and#{endDate}
+    </select>
+
+
+    <!--**********************查*****************************
+    //返回值是一行的map,根据id查用户名和用户的地址
+       Map<String,String> getReturnMapOne(int id);-->
+    <select id="getReturnMapOne" parameterType="int"
+            resultType="map">
+        select username name,address addr from users where id=#{id}
+    </select>
+
+
+    <!-- **********************查*****************************
+    //返回多行的map
+    List<Map<String,String>> getReturnMapMul();-->
+    <select id="getReturnMapMul" resultType="map">
+        select address,username from users
+    </select>
+
+</mapper>

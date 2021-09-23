@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/mybatis_001_resultMap" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mybatis_002_dynamic" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mybatis_003_dynamic_sql" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mybatis_004_resultmap" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mybatis_005_multi-table queries" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mybatis_student001" charset="UTF-8" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

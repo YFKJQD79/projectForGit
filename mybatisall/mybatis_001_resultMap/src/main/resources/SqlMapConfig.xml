@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--读属性文件-->
+    <properties resource="jdbc.properties"></properties>
+    <!--显示输出日志-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <!--单个注册别名-->
+        <!--<typeAlias type="com.qdyinfukeji.pojo.Users" alias="uu"></typeAlias>-->
+        <!--批量注册-->
+        <!--自动起别名，类名就是别名-->
+        <package name="com.qdyinfukeji.pojo"></package>
+    </typeAliases>
+    <!--配置环境变量-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <!-- private String driver;
+  private String url;
+  private String username;
+  private String password;-->
+                <property name="driver" value="${jdbc.driverClassName}"></property>
+                <property name="url" value="${jdbc.url}"></property>
+                <property name="username" value="${jdbc.username}"></property>
+                <property name="password" value="${jdbc.password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--注册Mapper.xml-->
+
+    <mappers>
+        <!--非动态代理注册-->
+        <!--<mapper resource="StudentMapper.xml"></mapper>-->
+
+        <!--动态代理注册mapper.xml-->
+        <!--<mapper class="com.qdyinfukeji.mapper.UsersMapper"></mapper>-->
+
+        <!--<mapper url="D:\1-JavaR
+        esearch\19.MyBatis\04_project\mybatisall\mybatis_002_dynamic\src\main\java\com\qdyinfukeji\mapper\UsersMapper.xml"></mapper>-->
+        <!--以上url方式注册极为少用-->
+
+        <!--批量注册-->
+        <package name="com.qdyinfukeji.mapper"></package>
+    </mappers>
+</configuration>

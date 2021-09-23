@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/mybatis_student001/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis_002_dynamic/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis_003_dynamic_sql/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis_001_resultMap/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis_004_resultmap/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis_005_multi-table queries/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

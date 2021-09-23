@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qdyinfukeji.mapper.StudentMapper">
+    <!--完成查询所有学生信息的功能
+    List<Student>  getAll();-->
+    <select id="getAll" resultType="com.qdyinfukeji.pojo.Student">
+        select id,name,email,age
+        from student
+    </select>
+    <!--按主键值查一个学生数据
+    public Student getById(int id);-->
+    <select id="getById" resultType="com.qdyinfukeji.pojo.Student" parameterType="int">
+  select id,name,email,age
+  from ssm.student
+  where id=#{id}
+    </select>
+    <!--完成增加学生的操作
+    public int insert(Student stu);
+
+       private int id;
+       private String name;
+       private String email;
+       private int age;-->
+    <insert id="insert" parameterType="com.qdyinfukeji.pojo.Student">
+        insert into student(name, email, age)
+        values(#{name},#{email},#{age})
+    </insert>
+    <!--删除
+    int deleteById(int id)-->
+    <delete id="deleteById" parameterType="int">
+        delete from student
+        where id=#{id}
+    </delete>
+
+    <!--//更新学生
+    int update(Student student);-->
+    <update id="update" parameterType="student" >
+        update student set name=#{name},email=#{email},age=#{age} where id=#{id}
+    </update>
+</mapper>

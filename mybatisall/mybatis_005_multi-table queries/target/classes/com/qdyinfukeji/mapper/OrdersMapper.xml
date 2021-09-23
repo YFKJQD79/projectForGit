@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qdyinfukeji.mapper.OrdersMapper">
+<!--
+    private int id;
+    private String orderNumber;
+    private double orderPrice;
+
+    //多方会持有一方的对象
+    private Customer customer;-->
+    <resultMap id="ordersMap" type="orders">
+        <id property="id" column="id"/>
+       <result property="orderNumber" column="orderNumber"/>
+       <result property="orderPrice" column="orderPrice"/>
+        <!--private int id;
+            private String name;
+            private int age;-->
+        <association property="customer" javaType="customer">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="age" column="age"/>
+        </association>
+    </resultMap>
+<!--
+  //按照订单编号查询订单信息，并同时查询下订单的客户信息
+
+    Orders getById(int id);-->
+    <select id="getById" parameterType="int" resultMap="ordersMap">
+
+      select o.id oid,o.orderNumber,o.orderPrice,c.id cid,c.age,c.name
+      from orders o
+      join customer c
+      on o.customer_id = c.id
+      where o.id=#{id}
+        
+    </select>
+</mapper>
